@@ -30,8 +30,16 @@ jobs:
             dep ensure
         fi
 
-    - name: Build
-      run: go build -v .
+    - name: Build Plugin Map wc
+      run: go build -buildmode=plugin -o wc_map.so wc_map.go 
+    - name: Build Plugin Reduce wc
+      run: go build -buildmode=plugin -o wc_reduce.so wc_reduce.go 
+    - name: Build Plugin Map rwl
+      run: go build -buildmode=plugin -o rwl_map.so rwl_map.go 
+    - name: Build Plugin Reduce rwl
+      run: go build -buildmode=plugin -o rwl_reduce.so rwl_reduce.go 
+    - name: Build Main
+      run: go build -v util.go membership.go SDFS.go maplejuice.go
 
     - name: Test
       run: go test -v .
